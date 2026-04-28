@@ -49,14 +49,14 @@ public class TaskServiceTest
     [Fact]
     public void CompleteTask_ShouldMarkTaskAsCompleted()
     {
-        // Given
+        // Arrange
         var service = new TaskService();
         var task = service.AddTask("Get more ideas for tasks");
     
-        // When
+        // Act
         service.CompleteTask(task.Id);
     
-        // Then
+        // Assert
         Assert.True(service.GetTasks().First().IsCompleted);
     }
 
