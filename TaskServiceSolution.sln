@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaskService", "TaskService\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaskService.test", "TaskService.test\TaskService.test.csproj", "{D5B6666E-2BD3-482D-8136-F779A54EAA9F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaskService.Api", "TaskService.Api\TaskService.Api.csproj", "{6723B6FF-DD55-454A-9A21-8554E49EEFFD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -41,6 +43,18 @@ Global
 		{D5B6666E-2BD3-482D-8136-F779A54EAA9F}.Release|x64.Build.0 = Release|Any CPU
 		{D5B6666E-2BD3-482D-8136-F779A54EAA9F}.Release|x86.ActiveCfg = Release|Any CPU
 		{D5B6666E-2BD3-482D-8136-F779A54EAA9F}.Release|x86.Build.0 = Release|Any CPU
+		{6723B6FF-DD55-454A-9A21-8554E49EEFFD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6723B6FF-DD55-454A-9A21-8554E49EEFFD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6723B6FF-DD55-454A-9A21-8554E49EEFFD}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{6723B6FF-DD55-454A-9A21-8554E49EEFFD}.Debug|x64.Build.0 = Debug|Any CPU
+		{6723B6FF-DD55-454A-9A21-8554E49EEFFD}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{6723B6FF-DD55-454A-9A21-8554E49EEFFD}.Debug|x86.Build.0 = Debug|Any CPU
+		{6723B6FF-DD55-454A-9A21-8554E49EEFFD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6723B6FF-DD55-454A-9A21-8554E49EEFFD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6723B6FF-DD55-454A-9A21-8554E49EEFFD}.Release|x64.ActiveCfg = Release|Any CPU
+		{6723B6FF-DD55-454A-9A21-8554E49EEFFD}.Release|x64.Build.0 = Release|Any CPU
+		{6723B6FF-DD55-454A-9A21-8554E49EEFFD}.Release|x86.ActiveCfg = Release|Any CPU
+		{6723B6FF-DD55-454A-9A21-8554E49EEFFD}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

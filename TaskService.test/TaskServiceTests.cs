@@ -70,4 +70,11 @@ public class TaskServiceTest
         Assert.Throws<KeyNotFoundException>(() => service.CompleteTask(500));
     }
 
+    [Fact]
+    public async Task HTTPHealth_ReturnsOk()
+    {
+        var client = new HttpClient();
+        var response = await client.GetAsync("http://localhost:5118/health");
+        Assert.True(response.IsSuccessStatusCode);
+    }
 }
