@@ -1,0 +1,83 @@
+Før du starter må du ha docker dekstop installert!!
+1. Lage en dockerfile
+
+Mappestruktur:
+
+ToDo-Prosjekt
+│
+├── TaskService
+│   ├── TaskService.cs
+│   ├── TaskItem.cs
+│   └── TaskService.csproj
+│
+├── TaskService.Api
+│   ├── Controllers/
+│   │   └── TasksController.cs
+│   ├── Program.cs
+│   ├── TaskService.Api.csproj
+│   └── Dockerfile
+│
+└── TaskService.Tests
+    ├── TaskServiceTests.cs
+    └── TaskService.Tests.csproj
+
+2. Fortell docker hvordan den skal bygge prosjektet:
+
+# Build
+FROM mcr.microsoft.com/dotnet/sdk:10.0 AS build
+WORKDIR /src
+
+# Kopier hele solution
+COPY . .
+
+# Gå inn i API-prosjektet
+WORKDIR /src/TaskService.Api
+
+# Restore + publish
+RUN dotnet restore
+RUN dotnet publish -c Release -o /app/publish
+
+# Runtime
+FROM mcr.microsoft.com/dotnet/aspnet:10.0
+WORKDIR /app
+
+COPY --from=build /app/publish .
+
+ENTRYPOINT ["dotnet", "TaskService.Api.dll"]
+
+3. Bygg docker image
+
+Pass på at du står i root mappen altså "ToDo-prosjekt" eller hva du har kalt mappen:
+
+ToDo-prosjekt (DENNE MAPPEN)
+│
+├── TaskService
+│   ├── TaskService.cs
+│   ├── TaskItem.cs
+│   └── TaskService.csproj
+│
+├── TaskService.Api
+│   ├── Controllers/
+│   │   └── TasksController.cs
+│   ├── Program.cs
+│   ├── TaskService.Api.csproj
+│   └── Dockerfile
+│
+└── TaskService.Tests
+    ├── TaskServiceTests.cs
+    └── TaskService.Tests.csproj
+
+(start opp docker dekstop)
+
+4. Kjør i terminal:
+docker build -t taskservice -f TaskService.Api/Dockerfile .
+
+5. Kjør i terminal:
+docker run -p 8080:80 taskservice  
+Hvis port 8080 er opptatt kan du bruke 8081, 8082 osv.
+
+6. Åpne nettleser og søk: http://localhost:8080/Tasks
+
+NB!
+Hvis du ikke får server respons prøv å legge til dette i program.cs:
+app.Urls.Add("http://0.0.0.0:80");
