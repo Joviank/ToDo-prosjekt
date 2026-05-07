@@ -11,11 +11,13 @@ builder.Services.AddSingleton<TaskServiceClass>();
 
 var app = builder.Build();
 
-app.UseSwagger();
-app.UseSwaggerUI();
+if (app.Environment.IsDevelopment())
+{
+    app.UseSwagger();
+    app.UseSwaggerUI();
+}
 
 app.MapControllers();
 app.MapHealthChecks("health");
-app.Urls.Add("http://0.0.0.0:80");
 
 app.Run();

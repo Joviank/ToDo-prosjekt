@@ -15,7 +15,7 @@ ToDo-Prosjekt
 │   │   └── TasksController.cs
 │   ├── Program.cs
 │   ├── TaskService.Api.csproj
-│   └── Dockerfile
+│   └── Dockerfile (NY!!!)
 │
 └── TaskService.Tests
     ├── TaskServiceTests.cs
