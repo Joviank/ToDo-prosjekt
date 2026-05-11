@@ -1,44 +1,32 @@
-﻿using System.Collections.Generic;
-
+﻿using TaskService.Repositories;
 namespace TaskService;
 
 public class TaskService
 {
-    private readonly List<TaskItem> tasks = new();
-    private int nextId = 1;
+    private readonly ITaskRepository _repo;
+
+    public TaskService(ITaskRepository repo)
+    {
+        _repo = repo;
+    }
+
     public TaskItem AddTask(string title)
     {
-        var task = new TaskItem(nextId++, title);
-        tasks.Add(task);
-        return task;
+        return _repo.Add(title);
     }
 
     public List<TaskItem> GetTasks()
     {
-        return tasks.ToList();
-    }
-
-    public void DeleteTask(int id)
-    {
-        var task = tasks.FirstOrDefault(t => t.Id == id);
-
-        if (task == null)
-        {
-            throw new KeyNotFoundException("Task not found");
-        }
-
-        tasks.Remove(task);
+        return _repo.GetAll();
     }
 
     public void CompleteTask(int id)
     {
-        var task = tasks.FirstOrDefault(t => t.Id == id);
+        _repo.Complete(id);
+    }
 
-        if (task == null)
-        {
-            throw new KeyNotFoundException("Task not found");
-        }
-
-        task.IsCompleted = true;
+    public void DeleteTask(int id)
+    {
+        _repo.Delete(id);
     }
 }

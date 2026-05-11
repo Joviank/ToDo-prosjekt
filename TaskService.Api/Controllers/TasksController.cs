@@ -1,35 +1,35 @@
 using Microsoft.AspNetCore.Mvc;
 using TaskService;
+using TaskService.Api.DTO;
 
 namespace TaskService.Api.Controllers;
 
 [ApiController]
 [Route("tasks")]
-public class TasksController : ControllerBase
+public class TaskController : ControllerBase
 {
-    private readonly TaskService _taskManager;
+    private readonly TaskService _taskService;
 
-    public TasksController(TaskService taskService)
+    public TaskController(TaskService taskService)
     {
-        _taskManager = taskService;
+        _taskService= taskService;
     }
 
     [HttpGet]
-    public IEnumerable<TaskItem> GetTasks()
-    {
-        return _taskManager.GetTasks();
+    public IEnumerable<TaskItem> GetTask() {
+        return _taskService.GetTasks();
     }
-    
+
     [HttpPost]
-    public TaskItem AddTask(string title)
+    public TaskItem AddTask([FromBody] CreateTaskRequest request)
     {
-        return _taskManager.AddTask(title);
+        return _taskService.AddTask(request.Title);
     }
 
     [HttpDelete("{id}")]
     public IActionResult DeleteTask(int id)
     {
-        _taskManager.DeleteTask(id);
+        _taskService.DeleteTask(id);
         return NoContent();
     }
 }
