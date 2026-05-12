@@ -1,4 +1,14 @@
 services:
+  traefik:
+    image: traefik:v3
+
+    ports:
+      - "80:80"
+      - "8081:8080"
+
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - ./traefik/traefik.yml:/etc/traefik/traefik.yml:ro
   api:
     build:
       context: .
@@ -12,6 +22,9 @@ services:
 
     environment:
       ConnectionStrings__DefaultConnection: Host=db;Port=5432;Database=tasks;Username=postgres;Password=postgres
+
+    labels:
+      - "traefik.http.routers.api.rule=Host(`api.localhost`)"
 
   db:
     image: postgres:18
