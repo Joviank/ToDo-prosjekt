@@ -15,7 +15,7 @@ services:
       dockerfile: TaskService.Api/Dockerfile
 
     ports:
-      - "8080:8080"
+      - "8080:80"
 
     depends_on:
       - db
@@ -25,9 +25,10 @@ services:
 
     labels:
       - "traefik.http.routers.api.rule=Host(`api.localhost`)"
+      - "traefik.http.services.api.loadbalancer.server.port=80"
 
   db:
-    image: postgres:18
+    image: postgres:16
 
     environment:
       POSTGRES_DB: tasks
