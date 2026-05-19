@@ -21,7 +21,7 @@ services:
 
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.api.rule=Host(`api.localhost`)"
+      - "traefik.http.routers.api.rule=Host(`204.168.239.151`)"
       - "traefik.http.services.api.loadbalancer.server.port=8080"
 
   db:
