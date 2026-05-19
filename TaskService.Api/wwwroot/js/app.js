@@ -10,41 +10,46 @@ async function loadTasks() {
   for (const task of tasks) {
     const li = document.createElement("li");
 
-    li.innerHTML = `
-        <span style="text-decoration:${task.isDone ? "line-through" : "none"}">
-            ${task.title}
-        </span>
+    const span = document.createElement("span");
+    span.style.textDecoration = task.isDone ? "line-through" : "none";
+    span.textContent = task.title;
 
-        <button onclick="toggleDone(${task.id})">
-            ${task.isDone ? "Undo" : "Done"}
-        </button>
-        `;
+    const button = document.createElement("button");
+    button.textContent = task.isDone ? "Undo" : "Done";
 
+    button.addEventListener("click", () => toggleDone(task.id));
+
+    li.appendChild(span);
+    li.appendChild(button);
     list.appendChild(li);
   }
-
-  async function addTask() {
-    const input = document.getElementById("taskInput");
-
-    await fetch(apiUrl, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        title: input.value,
-      }),
-    });
-    input.value = "";
-    loadTasks();
-  }
-
-  async function toggleDone(id) {
-    await fetch(`/tasks/${id}/complete`, {
-      method: "PATCH",
-    });
-    loadTasks();
-  }
 }
+
+async function addTask() {
+  const input = document.getElementById("taskInput");
+  if (!input.value.trim()) return;
+
+  await fetch(apiUrl, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      Title: input.value,
+    }),
+  });
+  console.log("jeg var her");
+  input.value = "";
+  loadTasks();
+}
+
+async function toggleDone(id) {
+  await fetch(`/tasks/${id}/complete`, {
+    method: "PATCH",
+  });
+  loadTasks();
+}
+
+document.getElementById("addTaskBtn").addEventListener("click", addTask);
 
 loadTasks();
