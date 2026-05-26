@@ -10,14 +10,14 @@ public class TaskService
         _repo = repo;
     }
 
-    public TaskItem AddTask(string title)
+    public TaskItem AddTask(string title, string userId)
     {
-        return _repo.Add(title);
+        return _repo.Add(title, userId);
     }
 
-    public List<TaskItem> GetTasks()
+    public List<TaskItem> GetTasks(string userId)
     {
-        return _repo.GetAll();
+        return _repo.GetAll(userId);
     }
 
     public void CompleteTask(int id)

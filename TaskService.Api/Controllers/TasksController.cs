@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using TaskService;
 using TaskService.Api.DTO;
+using System.IdentityModel.Tokens.Jwt;
 
 namespace TaskService.Api.Controllers;
 
@@ -16,14 +17,48 @@ public class TaskController : ControllerBase
     }
 
     [HttpGet]
-    public IEnumerable<TaskItem> GetTask() {
-        return _taskService.GetTasks();
+    public ActionResult<IEnumerable<TaskItem>> GetTask() {
+        var authHeader = HttpContext.Request.Headers["Authorization"].ToString();
+        if(string.IsNullOrEmpty(authHeader))
+        {
+            return BadRequest("You shall  not pass with NO authorization header!");
+        }
+        var token = authHeader.Replace("Bearer ", "");
+
+        var handler = new JwtSecurityTokenHandler();
+        var jwt = handler.ReadJwtToken(token);
+        var userId = jwt.Claims.FirstOrDefault(c => c.Type == "sub")?.Value;
+
+        if (string.IsNullOrEmpty(userId))
+        {
+            return BadRequest("Token is missing User ID");
+        }
+
+        var tasks = _taskService.GetTasks(userId);
+        return Ok(tasks);
     }
 
     [HttpPost]
-    public TaskItem AddTask([FromBody] CreateTaskRequest request)
+    public ActionResult<TaskItem> AddTask([FromBody] CreateTaskRequest request)
     {
-        return _taskService.AddTask(request.Title);
+        var authHeader = HttpContext.Request.Headers["Authorization"].ToString();
+        if(string.IsNullOrEmpty(authHeader))
+        {
+            return BadRequest("You shall  not pass with NO authorization header!");
+        }
+        var token = authHeader.Replace("Bearer ", "");
+
+        var handler = new JwtSecurityTokenHandler();
+        var jwt = handler.ReadJwtToken(token);
+        var userId = jwt.Claims.FirstOrDefault(c => c.Type == "sub")?.Value;
+        
+        if (string.IsNullOrEmpty(userId))
+        {
+            return BadRequest("Token is missing User ID");
+        }
+
+        var newTask = _taskService.AddTask(request.Title, userId);
+        return Ok(newTask);
     }
 
     [HttpDelete("{id}")]

@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("TaskService.Api")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+a2ef07478a91fd2eda816917ea78457c88a6b39b")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+6b80ba972b7e99e5405fbf89f923e88b69ca0313")]
 [assembly: System.Reflection.AssemblyProductAttribute("TaskService.Api")]
 [assembly: System.Reflection.AssemblyTitleAttribute("TaskService.Api")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

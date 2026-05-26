@@ -1,12 +1,19 @@
 public class TaskItem
 {
     public int Id {get; set;}
-    public string Title {get; set;}
+    public string Title {get; set;} = string.Empty;
     public bool IsCompleted {get; set;}
-    public TaskItem(int id, string title)
+
+    public string UserId {get; set; } = string.Empty;
+
+    public TaskItem()
+    {
+    }
+    public TaskItem(int id, string title, string userId)
     {
         Id = id;
         Title = title;
         IsCompleted = false;
+        UserId = userId;
     }
 }

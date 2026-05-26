@@ -28,7 +28,7 @@ TaskService/
 └── TaskService.cs (Endringer)
 TaskService.Api/
 ├── Controllers/ TasksController.cs (Endringer)
-└── Repositories/ EfTaskRepository.cs (Endringer)
+└── Repositories/ EfTaskRepository.cs (Endringer) 
 
 1. Oppdater kildekode:
 TaskItem.cs: Legg til public string UserId { get; set; } (husk tom konstruktør for EF core).
